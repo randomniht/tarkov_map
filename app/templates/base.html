@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Tarkov Maps{% endblock %}</title>
+    
+    <!-- 1. Сначала ОСНОВНЫЕ стили -->
+    <link rel="stylesheet" href="/static/css/style.css">
+    
+    <!-- 2. ПОТОМ Leaflet (он не должен ломать основную верстку) -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""/>
+    
+    <!-- 3. Свои инлайновые стили для карты (если нужны) -->
+    <style>
+        /* Критические стили для карты */
+        #map {
+            width: 100%;
+            height: 100%;
+        }
+        
+        /* Переопределяем стили Leaflet, которые ломают верстку */
+        .leaflet-container {
+            background: #1a1a1a !important;
+        }
+    </style>
+</head>
+<body>
+    <!-- ВАША ВЕРСТКА -->
+    <header class="header">
+        <div class="second_row">
+            <div class="header_container">
+                <a href="/" class="header_logo-link">Tarkov Maps</a>
+                <div class="links">
+                    <div class="links_elem selected_links" data-id="maps-keys-exits">
+                        Maps, keys, exits
+                    </div>
+                    <div class="links_elem" data-id="quests">
+                        Quests
+                    </div>
+                </div>
+                <div class="form-container">
+                    <input class="autoCompleteHeader" type="text" placeholder="Enter your request">
+                </div>
+                <button class="login-btn" type="button">Login</button>
+            </div>
+        </div>
+        
+        <div class="third_row">
+            <div class="header_container">
+                <div class="selected_links-info" id="maps-keys-exits">
+                    <a href="/map/terminal">Terminal</a>
+                    <a href="/map/streets">Streets</a>
+                    <a href="/map/ground-zero">Ground Zero</a>
+                    <a href="/map/shoreline">Shoreline</a>
+                    <a href="/map/factory">Factory</a>
+                    <a href="/map/labs">The Lab</a>
+                    <a href="/map/woods">Woods</a>
+                    <a href="/map/interchange">Interchange</a>
+                    <a href="/map/reserve">Reserve</a>
+                    <a href="/map/customs">Customs</a>
+                    <a href="/map/lighthouse">Lighthouse</a>
+                    <a href="/map/the-labyrinth">The Labyrinth</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="map_main">
+        {% block content %}
+        <!-- Content goes here -->
+        {% endblock %}
+    </main>
+
+    <footer class="footer">
+        <div class="footer__container">
+            <div class="footer__copyrightsInfo">
+                <p class="author">
+                    2025 by <span class="author__name">Tarkov Maps</span> 
+                    <a href="/offer" target="_blank">Offer</a>, 
+                    <a href="/policy" target="_blank">Privacy Policy</a>
+                </p>
+            </div>
+            <div class="footer__social">
+                <a href="https://github.com" target="_blank">GitHub</a>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Leaflet JS в самом конце -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+     integrity=""
+     crossorigin=""></script>
+    {% block scripts %}
+    {% endblock %}
+    
+    <script>
+        // Функция для подсветки активной карты
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentPath = window.location.pathname;
+            const mapLinks = document.querySelectorAll('.third_row a');
+            
+            mapLinks.forEach(link => {
+                const linkPath = link.getAttribute('href');
+                if (currentPath === linkPath) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,123 @@
+{% extends "base.html" %}
+
+{% block title %}{{ map.name|title }} - Map{% endblock %}
+
+{% block content %}
+<style>
+    /* Специальные стили для страницы карты */
+    .map_main {
+        padding: 20px 0;
+        background-color: #222;
+    }
+    
+    .map-container-wrapper {
+        max-width: 2000px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+    
+    .map-header-info {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    
+    .map-header-info h1 {
+        color: #ff6b00;
+        font-size: 28px;
+        margin-bottom: 10px;
+    }
+    
+    .map-header-info .map-id {
+        color: #aaa;
+        font-size: 14px;
+    }
+    
+    .map-display-container {
+        background-color: #333;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    
+    .map-frame {
+        width: 1920px;
+        height: 780px;
+        border: 2px solid #444;
+        border-radius: 4px;
+        overflow: hidden;
+        position: relative;
+        margin: 0 auto;
+    }
+    
+    #map {
+        width: 100%;
+        height: 100%;
+    }
+</style>
+
+<div class="map-container-wrapper">
+    <div class="map-header-info">
+        <h1>Map: {{ map.name|title }}</h1>
+        <div class="map-id">Map ID: <strong>{{ map.id }}</strong></div>
+    </div>
+    
+    <div class="map-display-container">
+        <div class="map-frame">
+            <div id="map"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Pass data from Python to JavaScript
+    window.MAP_DATA = {
+        id: "{{ map.id }}",
+        name: "{{ map.name }}"
+    };
+    
+    console.log('Python data received:', window.MAP_DATA);
+    
+    // Initialize map when DOM is fully loaded
+    document.addEventListener('DOMContentLoaded', function() {
+        if (typeof L === 'undefined') {
+            console.error('Leaflet not loaded!');
+            return;
+        }
+        
+        // Create map with simple coordinate system
+        const map = L.map('map', {
+            crs: L.CRS.Simple,
+        });
+        
+        const mapSize = [200, 200]; // [width, height]
+        
+        // Define bounds based on CRS.Simple coordinates
+        const southWest = map.options.crs.pointToLatLng(L.point(0, mapSize[1]), 0);
+        const northEast = map.options.crs.pointToLatLng(L.point(mapSize[0], 0), 0);
+        const bounds = L.latLngBounds(southWest, northEast);
+        
+        // Use map ID from Python in tile URL
+        L.tileLayer(`https://minio.tarkov.help/maps/${window.MAP_DATA.id}/{z}/{x}/{y}.webp`, {
+            bounds: bounds,
+            noWrap: true,
+            crs: L.CRS.Simple,
+            tms: false,
+            attribution: `Map: ${window.MAP_DATA.name}`
+        }).addTo(map);
+        
+        map.fitBounds(bounds);
+        
+        // Add zoom controls
+        L.control.zoom({
+            position: 'topright'
+        }).addTo(map);
+        
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            map.fitBounds(bounds);
+        });
+        
+        console.log(`Map "${window.MAP_DATA.id}" created successfully`);
+    });
+</script>
+{% endblock %}

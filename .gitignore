@@ -57,3 +57,12 @@ logs/
 
 *.db
 *.sqlite3
+# FastAPI
+fastapi-cli.json
+
+# Python кэш
+.python-version
+
+# Статические файлы
+staticfiles/
+mediafiles/
