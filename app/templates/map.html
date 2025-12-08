@@ -67,57 +67,15 @@
         </div>
     </div>
 </div>
-
 <script>
-    // Pass data from Python to JavaScript
+    // Определяем данные для карты, которые будут использоваться во внешнем скрипте
     window.MAP_DATA = {
         id: "{{ map.id }}",
         name: "{{ map.name }}"
     };
-    
     console.log('Python data received:', window.MAP_DATA);
-    
-    // Initialize map when DOM is fully loaded
-    document.addEventListener('DOMContentLoaded', function() {
-        if (typeof L === 'undefined') {
-            console.error('Leaflet not loaded!');
-            return;
-        }
-        
-        // Create map with simple coordinate system
-        const map = L.map('map', {
-            crs: L.CRS.Simple,
-        });
-        
-        const mapSize = [200, 200]; // [width, height]
-        
-        // Define bounds based on CRS.Simple coordinates
-        const southWest = map.options.crs.pointToLatLng(L.point(0, mapSize[1]), 0);
-        const northEast = map.options.crs.pointToLatLng(L.point(mapSize[0], 0), 0);
-        const bounds = L.latLngBounds(southWest, northEast);
-        
-        // Use map ID from Python in tile URL
-        L.tileLayer(`https://minio.tarkov.help/maps/${window.MAP_DATA.id}/{z}/{x}/{y}.webp`, {
-            bounds: bounds,
-            noWrap: true,
-            crs: L.CRS.Simple,
-            tms: false,
-            attribution: `Map: ${window.MAP_DATA.name}`
-        }).addTo(map);
-        
-        map.fitBounds(bounds);
-        
-        // Add zoom controls
-        L.control.zoom({
-            position: 'topright'
-        }).addTo(map);
-        
-        // Handle window resize
-        window.addEventListener('resize', () => {
-            map.fitBounds(bounds);
-        });
-        
-        console.log(`Map "${window.MAP_DATA.id}" created successfully`);
-    });
 </script>
+
+<!-- Подключаем внешний скрипт, который должен ждать DOMContentLoaded -->
+<script src="/static/js/main.js"></script>
 {% endblock %}

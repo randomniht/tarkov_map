@@ -5,30 +5,59 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %}Tarkov Maps{% endblock %}</title>
     
-    <!-- 1. Сначала ОСНОВНЫЕ стили -->
     <link rel="stylesheet" href="/static/css/style.css">
-    
-    <!-- 2. ПОТОМ Leaflet (он не должен ломать основную верстку) -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
     crossorigin=""/>
     
-    <!-- 3. Свои инлайновые стили для карты (если нужны) -->
     <style>
-        /* Критические стили для карты */
         #map {
             width: 100%;
             height: 100%;
         }
-        
-        /* Переопределяем стили Leaflet, которые ломают верстку */
         .leaflet-container {
-            background: #1a1a1a !important;
+            background: #1a1a1a;
         }
+        .map_btn{
+            display: inline-block;
+    background-color: #2ecc71;
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    margin: 5px;
+    border-radius: 8px;
+    font-weight: bold;
+    text-align: center;
+    min-width: 120px;
+    border: 2px solid #27ae60;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+        }
+          a:hover {
+        background-color: #27ae60 !important;
+        transform: translateY(-2px) !important;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15) !important;
+    }
+    
+    a:active {
+        background-color: #229954 !important;
+        transform: translateY(0) !important;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+    }
+    
+    a.active {
+        background-color: #1e8449 !important;
+        box-shadow: 0 0 0 3px rgba(46, 204, 113, 0.5) !important;
+        border-color: #145a32 !important;
+    }
     </style>
 </head>
 <body>
-    <!-- ВАША ВЕРСТКА -->
     <header class="header">
         <div class="second_row">
             <div class="header_container">
@@ -51,18 +80,18 @@
         <div class="third_row">
             <div class="header_container">
                 <div class="selected_links-info" id="maps-keys-exits">
-                    <a href="/map/terminal">Terminal</a>
-                    <a href="/map/streets">Streets</a>
-                    <a href="/map/ground-zero">Ground Zero</a>
-                    <a href="/map/shoreline">Shoreline</a>
-                    <a href="/map/factory">Factory</a>
-                    <a href="/map/labs">The Lab</a>
-                    <a href="/map/woods">Woods</a>
-                    <a href="/map/interchange">Interchange</a>
-                    <a href="/map/reserve">Reserve</a>
-                    <a href="/map/customs">Customs</a>
-                    <a href="/map/lighthouse">Lighthouse</a>
-                    <a href="/map/the-labyrinth">The Labyrinth</a>
+                    <a class="map_btn" href="/map/terminal">Terminal</a>
+                    <a class="map_btn" href="/map/streets">Streets</a>
+                    <a class="map_btn" href="/map/ground-zero">Ground Zero</a>
+                    <a class="map_btn" href="/map/shoreline">Shoreline</a>
+                    <a class="map_btn" href="/map/factory">Factory</a>
+                    <a class="map_btn" href="/map/labs">The Lab</a>
+                    <a class="map_btn" href="/map/woods">Woods</a>
+                    <a class="map_btn" href="/map/interchange">Interchange</a>
+                    <a class="map_btn" href="/map/reserve">Reserve</a>
+                    <a class="map_btn" href="/map/customs">Customs</a>
+                    <a class="map_btn" href="/map/lighthouse">Lighthouse</a>
+                    <a class="map_btn" href="/map/the-labyrinth">The Labyrinth</a>
                 </div>
             </div>
         </div>
@@ -70,41 +99,28 @@
 
     <main class="map_main">
         {% block content %}
-        <!-- Content goes here -->
         {% endblock %}
     </main>
 
     <footer class="footer">
-        <div class="footer__container">
-            <div class="footer__copyrightsInfo">
-                <p class="author">
-                    2025 by <span class="author__name">Tarkov Maps</span> 
-                    <a href="/offer" target="_blank">Offer</a>, 
-                    <a href="/policy" target="_blank">Privacy Policy</a>
-                </p>
-            </div>
             <div class="footer__social">
-                <a href="https://github.com" target="_blank">GitHub</a>
+                <a href="https://github.com/randomniht" target="_blank">GitHub</a>
             </div>
         </div>
     </footer>
     
-    <!-- Leaflet JS в самом конце -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-     integrity=""
      crossorigin=""></script>
     {% block scripts %}
     {% endblock %}
     
     <script>
-        // Функция для подсветки активной карты
         document.addEventListener('DOMContentLoaded', function() {
             const currentPath = window.location.pathname;
             const mapLinks = document.querySelectorAll('.third_row a');
             
             mapLinks.forEach(link => {
-                const linkPath = link.getAttribute('href');
-                if (currentPath === linkPath) {
+                if (currentPath === link.getAttribute('href')) {
                     link.classList.add('active');
                 }
             });
