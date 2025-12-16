@@ -1,0 +1,386 @@
+/* ============================================
+   ENHANCED MAP BUTTONS - map_btn
+   Большие кнопки с эффектом зеленого фона при наведении
+   ============================================ */
+
+.map_btn {
+    display: inline-block;
+    background: linear-gradient(145deg, #2ecc71, #27ae60);
+    color: white;
+    text-decoration: none;
+    padding: 18px 36px; /* УВЕЛИЧЕН РАЗМЕР */
+    margin: 10px;
+    border-radius: 15px; /* БОЛЬШЕ ЗАКРУГЛЕНИЕ */
+    font-weight: 800;
+    text-align: center;
+    min-width: 200px; /* УВЕЛИЧЕНА МИНИМАЛЬНАЯ ШИРИНА */
+    border: 4px solid #1e8449; /* ТОЛЩЕ ГРАНИЦА */
+    box-shadow: 
+        0 8px 16px rgba(0, 0, 0, 0.3),
+        0 4px 8px rgba(0, 0, 0, 0.2),
+        inset 0 3px 0 rgba(255, 255, 255, 0.25);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 18px; /* УВЕЛИЧЕН ШРИФТ */
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+/* ЗЕЛЕНЫЙ ФОН ПРИ НАВЕДЕНИИ */
+.map_btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        rgba(46, 204, 113, 0) 0%,
+        rgba(46, 204, 113, 0.8) 50%,
+        rgba(46, 204, 113, 0) 100%
+    );
+    z-index: -1;
+    transition: left 0.6s ease;
+}
+
+/* ЭФФЕКТ РАСШИРЕНИЯ ПРИ НАВЕДЕНИИ */
+.map_btn:hover::before {
+    left: 100%;
+}
+
+/* ДОПОЛНИТЕЛЬНЫЙ ЗЕЛЕНЫЙ ФОН ПОСЛЕ ПРОХОДА ВОЛНЫ */
+.map_btn:hover {
+    background: linear-gradient(145deg, #27ae60, #229954);
+    transform: translateY(-6px) scale(1.08); /* БОЛЬШЕ ПОДЪЕМА */
+    box-shadow: 
+        0 15px 30px rgba(0, 0, 0, 0.4),
+        0 6px 12px rgba(0, 0, 0, 0.25),
+        inset 0 3px 0 rgba(255, 255, 255, 0.35);
+    border-color: #27ae60;
+}
+
+/* ПОЛНЫЙ ЗЕЛЕНЫЙ ФОН ПОСЛЕ НАВЕДЕНИЯ */
+.map_btn::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(145deg, #27ae60, #229954);
+    border-radius: 13px;
+    z-index: -2;
+    opacity: 0;
+    transition: opacity 0.4s ease 0.2s;
+}
+
+.map_btn:hover::after {
+    opacity: 1;
+}
+
+/* ЭФФЕКТ ПУЛЬСАЦИИ ДЛЯ АКТИВНОЙ КНОПКИ */
+.map_btn.active {
+    background: linear-gradient(145deg, #1e8449, #196f3d);
+    box-shadow: 
+        0 0 0 6px rgba(46, 204, 113, 0.6), /* БОЛЬШЕ СВЕЧЕНИЯ */
+        0 12px 24px rgba(0, 0, 0, 0.4),
+        inset 0 3px 0 rgba(255, 255, 255, 0.25);
+    border-color: #145a32;
+    color: #ffffff;
+    animation: buttonGlow 2s infinite;
+}
+
+@keyframes buttonGlow {
+    0%, 100% {
+        box-shadow: 
+            0 0 0 6px rgba(46, 204, 113, 0.6),
+            0 12px 24px rgba(0, 0, 0, 0.4),
+            inset 0 3px 0 rgba(255, 255, 255, 0.25);
+    }
+    50% {
+        box-shadow: 
+            0 0 0 10px rgba(46, 204, 113, 0.4),
+            0 15px 30px rgba(0, 0, 0, 0.5),
+            inset 0 3px 0 rgba(255, 255, 255, 0.3);
+    }
+}
+
+/* АКТИВНОЕ СОСТОЯНИЕ (КЛИК) */
+.map_btn:active {
+    transform: translateY(-3px) scale(1.04);
+    box-shadow: 
+        0 6px 12px rgba(0, 0, 0, 0.3),
+        inset 0 2px 0 rgba(255, 255, 255, 0.15);
+    transition: all 0.1s ease;
+}
+
+/* ДЕКОРАТИВНЫЕ ЭЛЕМЕНТЫ ДЛЯ КНОПОК */
+.map_btn .inner-border {
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    right: 3px;
+    bottom: 3px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 12px;
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* ЭФФЕКТ БЛЕСКА СВЕРХУ */
+.map_btn .shine {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 40%;
+    background: linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0.25) 0%,
+        rgba(255, 255, 255, 0) 100%
+    );
+    border-radius: 15px 15px 0 0;
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* ЭФФЕКТ ЧАСТИЦ ПРИ НАВЕДЕНИИ */
+.map_btn:hover .particles {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.map_btn:hover .particles::before,
+.map_btn:hover .particles::after {
+    content: '';
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    animation: particleFloat 1s ease-out forwards;
+}
+
+.map_btn:hover .particles::before {
+    top: 10%;
+    left: 20%;
+    animation-delay: 0.1s;
+}
+
+.map_btn:hover .particles::after {
+    top: 20%;
+    left: 80%;
+    animation-delay: 0.3s;
+}
+
+@keyframes particleFloat {
+    0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-20px) scale(0);
+        opacity: 0;
+    }
+}
+
+/* ============ АДАПТИВНОСТЬ КНОПОК ============ */
+
+/* Планшеты и небольшие ноутбуки */
+@media (max-width: 1200px) {
+    .map_btn {
+        min-width: 180px;
+        padding: 16px 32px;
+        font-size: 17px;
+        margin: 8px;
+        border-radius: 14px;
+    }
+}
+
+/* Планшеты (портрет) */
+@media (max-width: 992px) {
+    .map_btn {
+        min-width: 160px;
+        padding: 14px 28px;
+        font-size: 16px;
+        margin: 7px;
+        border-radius: 12px;
+    }
+}
+
+/* Мобильные устройства (альбом) */
+@media (max-width: 768px) {
+    .map_btn {
+        min-width: 140px;
+        padding: 12px 24px;
+        font-size: 15px;
+        margin: 6px;
+        border-radius: 10px;
+        letter-spacing: 1px;
+    }
+    
+    /* Уменьшаем анимации для производительности */
+    .map_btn.active {
+        animation: buttonGlow 3s infinite;
+    }
+}
+
+/* Мобильные устройства (портрет) */
+@media (max-width: 480px) {
+    .map_btn {
+        min-width: 120px;
+        padding: 10px 20px;
+        font-size: 14px;
+        margin: 5px;
+        border-radius: 8px;
+        letter-spacing: 0.8px;
+    }
+}
+
+/* Очень маленькие экраны */
+@media (max-width: 360px) {
+    .map_btn {
+        min-width: 110px;
+        padding: 8px 16px;
+        font-size: 13px;
+        margin: 4px;
+        border-radius: 7px;
+    }
+}
+
+/* ============ ДОПОЛНИТЕЛЬНЫЕ СТИЛИ ДЛЯ КОНТЕЙНЕРА ============ */
+.third_row .header_container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    padding: 20px 0;
+}
+
+.selected_links-info {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* ============ УЛУЧШЕННЫЙ HTML ДЛЯ КНОПОК ============ */
+/*
+<a class="map_btn" href="/map/terminal">
+    <span class="inner-border"></span>
+    <span class="shine"></span>
+    <span class="particles"></span>
+    Terminal
+</a>
+*/
+
+/* Если не используете доп. элементы в HTML, используйте псевдоэлементы */
+.map_btn .inner-border,
+.map_btn .shine,
+.map_btn .particles {
+    display: none; /* Скрываем, если не используем */
+}
+
+.map_btn {
+    position: relative;
+}
+
+/* Альтернатива с псевдоэлементами */
+.map_btn::before {
+    /* Уже определен выше */
+}
+
+.map_btn::after {
+    /* Уже определен выше */
+}
+
+/* Добавляем inner-border через дополнительный псевдоэлемент */
+.map_btn .inner-border-element {
+    display: none;
+}
+
+.map_btn::before {
+    /* Это для волнового эффекта */
+}
+
+/* Добавим статичный inner-border */
+.map_btn {
+    border: 4px solid #1e8449;
+    position: relative;
+}
+
+.map_btn::before {
+    /* Волновой эффект */
+}
+
+/* Статичный inner-border через box-shadow */
+.map_btn {
+    box-shadow: 
+        inset 0 0 0 1px rgba(255, 255, 255, 0.1),
+        0 8px 16px rgba(0, 0, 0, 0.3),
+        0 4px 8px rgba(0, 0, 0, 0.2),
+        inset 0 3px 0 rgba(255, 255, 255, 0.25);
+}
+
+.map_btn:hover {
+    box-shadow: 
+        inset 0 0 0 1px rgba(255, 255, 255, 0.2),
+        0 15px 30px rgba(0, 0, 0, 0.4),
+        0 6px 12px rgba(0, 0, 0, 0.25),
+        inset 0 3px 0 rgba(255, 255, 255, 0.35);
+}
+
+/* ============ ЭФФЕКТ ЗАГРУЗКИ ============ */
+.map_btn.loading {
+    position: relative;
+    color: transparent;
+}
+
+.map_btn.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* ============ ДИСАБЛЕД СОСТОЯНИЕ ============ */
+.map_btn:disabled,
+.map_btn.disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none !important;
+    animation: none !important;
+}
+
+.map_btn:disabled:hover,
+.map_btn.disabled:hover {
+    background: linear-gradient(145deg, #2ecc71, #27ae60);
+    transform: none;
+    box-shadow: 
+        0 8px 16px rgba(0, 0, 0, 0.3),
+        0 4px 8px rgba(0, 0, 0, 0.2),
+        inset 0 3px 0 rgba(255, 255, 255, 0.25);
+}

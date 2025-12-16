@@ -1,0 +1,45 @@
+/* ============================================
+   ELEGANT LARGE LOGO - header_logo-link
+   Большой, элегантный, с умеренным свечением
+   ============================================ */
+
+.header_logo-link {
+    /* ОСНОВНЫЕ СТИЛИ - БОЛЬШОЙ РАЗМЕР */
+    display: inline-block;
+    font-size: 46px;
+    font-weight: 800;
+    font-family: 'Orbitron', 'Arial Black', sans-serif;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    position: relative;
+    padding: 18px 36px;
+    margin-right: 28px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    
+    /* ЭЛЕГАНТНЫЙ ГРАДИЕНТ */
+    background: linear-gradient(
+        to bottom,
+        #4cd964 0%,      /* Светлый, приятный зеленый */
+        #2ecc71 30%,     /* Основной зеленый */
+        #27ae60 70%,     /* Насыщенный зеленый */
+        #219653 100%     /* Темный зеленый */
+    );
+    background-size: 100% 300%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: rgb(109, 166, 123);
+    
+    /* УМЕРЕННОЕ СВЕЧЕНИЕ */
+    text-shadow: 
+        /* Легкая обводка для читаемости */
+        0 0 2px rgba(0, 0, 0, 0.3),
+        1px 1px 2px rgba(0, 0, 0, 0.2),
+        -1px -1px 2px rgba(0, 0, 0, 0.2),
+        
+        /* Свечение - умеренное, не режущее глаза */
+        0 0 10px rgba(126, 238, 145, 0.4),
+        0 0 20px rgba(127, 244, 176, 0.3),
+        0 0 30px rgba(129, 236, 174, 0.2);}
