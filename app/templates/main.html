@@ -3,15 +3,14 @@
 {% block title %}Map Page{% endblock %}
 
 {% block content %}
-    <div>
-        <h1 style="text-align: center; margin-bottom: 20px;">Map</h1>
-        <div style="background-color: #333; padding: 20px; border-radius: 8px; margin: 0 auto;">
-            <p style="text-align: center; color: #aaa;">
-                [map]
-            </p>
-            <div style="width: 1920px; height: 720px; background-color: #444; display: flex; align-items: center; justify-content: center; border-radius: 4px;">
-                <span style="color: #777;">Map Preview Area</span>
-            </div>
+<div class="map-page-container">
+    <h1 class="map-page-title">Map</h1>
+    <div class="map-panel">
+        <p class="map-placeholder-text">[map]</p>
+        <div class="map-preview-frame">
+            <span class="map-preview-text">Map Preview Area</span>
         </div>
     </div>
+</div>
+
 {% endblock %}
