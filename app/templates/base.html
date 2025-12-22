@@ -6,54 +6,10 @@
     <title>{% block title %}Tarkov Maps{% endblock %}</title>
    
     <link rel="stylesheet" href="../static/css/main.css">
-    <link rel="stylesheet" href="../static/css/logo.css">
-    <link rel="stylesheet" href="../static/css/green-theme.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
     crossorigin=""/>
     
-    <style>
-body {
-    margin: 0;
-    padding: 0;
-    min-height: 100vh;
-    background: linear-gradient(45deg, #00ff41, #39ff14, #6fff00, #a8ff00, #d4ff00, #fff200, #ffea00, #ffd200, #ffc800, #39ff14, #00ff41);
-    background-size: 600% 600%;
-    animation: neonGlow 20s ease infinite;
-    position: relative;
-}
-
-body::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(45deg, #00ff88, #4aff5a, #7aff3c, #a8ff00, #d4ff00, #ffea00, #ffd200, #ffaa00, #ff8800, #4aff5a, #00ff88);
-    background-size: 600% 600%;
-    animation: neonGlow 15s ease infinite reverse;
-    z-index: -1;
-    filter: blur(25px);
-    opacity: 0.4;
-}
-
-@keyframes neonGlow {
-    0% { background-position: 0% 50%; }
-    25% { background-position: 100% 50%; }
-    50% { background-position: 100% 100%; }
-    75% { background-position: 0% 100%; }
-    100% { background-position: 0% 50%; }
-}
-
-.header, .map_main, .footer {
-    position: relative;
-    z-index: 1;
-    backdrop-filter: blur(10px);
-    background: rgba(0, 0, 0, 0.3);
-}
-
-    </style>
 </head>
 <body>
     <header class="header">
