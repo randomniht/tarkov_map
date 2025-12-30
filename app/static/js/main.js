@@ -1,3 +1,7 @@
+const map_id_vis = document.getElementsByClassName('map-id');
+for (let i = 0; i < map_id_vis.length; i++) {
+    map_id_vis[i].style.display = 'none';
+}// visible add none!!! in begin page might
 // static/js/main.js - SIMPLE & WORKING
 document.addEventListener('DOMContentLoaded', function() {
     console.log('DOM ready, initializing map...');
@@ -6,6 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (!window.MAP_DATA || !window.MAP_DATA.id) {
         console.warn('No MAP_DATA, using defaults');
         window.MAP_DATA = { id: 'default', name: 'Default Map' };
+        
     }
     
     // Create map WITHOUT zoom limit
