@@ -22,3 +22,7 @@ uvicorn app.main:app --reload
 
 how to update?
 git pull origin main
+how to make update?
+git branch newbranchename
+git add .
+git commit -m "sometext"
